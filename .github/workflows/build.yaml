@@ -19,7 +19,7 @@ jobs:
           sources: src/main.c
 
       - name: Bundle chip.json
-        run: cp chip.json dist/
+        run: sudo cp chip.json dist/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
