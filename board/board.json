@@ -1,0 +1,13 @@
+{
+  "board": {
+    "width": 180,
+    "height": 140,
+    "svg": "board.svg"
+  },
+  "pinout": {
+    "VCC": { "x": 8, "y": 30, "signals": [{ "type": "power", "voltage": 5 }] },
+    "GND": { "x": 8, "y": 54, "signals": [{ "type": "power", "voltage": 0 }] },
+    "TXD": { "x": 8, "y": 78, "signals": [] },
+    "RXD": { "x": 8, "y": 102, "signals": [] }
+  }
+}

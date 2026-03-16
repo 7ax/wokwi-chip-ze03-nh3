@@ -1,0 +1,3 @@
+*.wasm
+test_checksum
+.DS_Store

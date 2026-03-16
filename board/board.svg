@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 140">
+  <!-- PCB -->
+  <rect x="0" y="0" width="180" height="140" rx="4" fill="#1a6b3c"/>
+  <rect x="2" y="2" width="176" height="136" rx="3" fill="none" stroke="#2a8b4c" stroke-width="0.5"/>
+
+  <!-- Pin pads and labels -->
+  <rect x="2" y="22" width="12" height="16" rx="2" fill="#c4a000"/>
+  <text x="18" y="34" fill="white" font-size="9" font-family="monospace">VCC</text>
+
+  <rect x="2" y="46" width="12" height="16" rx="2" fill="#c4a000"/>
+  <text x="18" y="58" fill="white" font-size="9" font-family="monospace">GND</text>
+
+  <rect x="2" y="70" width="12" height="16" rx="2" fill="#c4a000"/>
+  <text x="18" y="82" fill="white" font-size="9" font-family="monospace">TXD</text>
+
+  <rect x="2" y="94" width="12" height="16" rx="2" fill="#c4a000"/>
+  <text x="18" y="106" fill="white" font-size="9" font-family="monospace">RXD</text>
+
+  <!-- Sensor housing -->
+  <circle cx="115" cy="65" r="36" fill="#2a2a2a" stroke="#555" stroke-width="1.5"/>
+  <circle cx="115" cy="65" r="28" fill="#333" stroke="#666" stroke-width="0.5"/>
+  <circle cx="115" cy="65" r="8" fill="#F5A623" opacity="0.6"/>
+
+  <!-- Labels -->
+  <text x="90" y="120" fill="white" font-size="10" font-family="sans-serif" font-weight="bold" text-anchor="middle">ZE03-NH</text>
+  <text x="127" y="122" fill="white" font-size="7" font-family="sans-serif" font-weight="bold">3</text>
+
+  <!-- Warning stripe accent -->
+  <rect x="0" y="0" width="180" height="3" rx="1" fill="#F5A623"/>
+
+  <!-- Attribution -->
+  <text x="172" y="134" fill="#888" font-size="6" font-family="monospace" text-anchor="end">@7ax</text>
+</svg>

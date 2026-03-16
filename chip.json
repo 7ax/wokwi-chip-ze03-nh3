@@ -1,0 +1,19 @@
+{
+  "name": "ZE03-NH3",
+  "author": "7ax",
+  "pins": ["VCC", "GND", "TXD", "RXD"],
+  "controls": [
+    {
+      "id": "nh3_ppm",
+      "label": "NH\u2083 (ppm)",
+      "type": "range",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "display": {
+    "svg": "board/board.svg"
+  }
+}

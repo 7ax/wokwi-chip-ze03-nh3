@@ -1,0 +1,28 @@
+name: Build WASM
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install wasi-sdk
+        run: |
+          WASI_VERSION=20
+          WASI_VERSION_FULL=20.0
+          wget -q https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${WASI_VERSION}/wasi-sdk-${WASI_VERSION_FULL}-linux.tar.gz
+          tar xf wasi-sdk-${WASI_VERSION_FULL}-linux.tar.gz
+          echo "WASI_SDK_PATH=$(pwd)/wasi-sdk-${WASI_VERSION_FULL}" >> $GITHUB_ENV
+
+      - name: Build
+        run: make
+
+      - name: Upload release artifact
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ze03-nh3.wasm
