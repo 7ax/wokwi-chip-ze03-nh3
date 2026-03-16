@@ -2,8 +2,10 @@ name: Build WASM
 
 on:
   push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -11,18 +13,38 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install wasi-sdk
-        run: |
-          WASI_VERSION=20
-          WASI_VERSION_FULL=20.0
-          wget -q https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${WASI_VERSION}/wasi-sdk-${WASI_VERSION_FULL}-linux.tar.gz
-          tar xf wasi-sdk-${WASI_VERSION_FULL}-linux.tar.gz
-          echo "WASI_SDK_PATH=$(pwd)/wasi-sdk-${WASI_VERSION_FULL}" >> $GITHUB_ENV
-
-      - name: Build
-        run: make
-
-      - name: Upload release artifact
-        uses: softprops/action-gh-release@v2
+      - name: Build chip
+        uses: wokwi/wokwi-chip-clang-action@main
         with:
-          files: ze03-nh3.wasm
+          sources: src/main.c
+
+      - name: Bundle chip.json
+        run: cp chip.json dist/
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chip
+          path: |
+            dist/chip.json
+            dist/chip.wasm
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: chip
+          path: chip
+
+      - name: Create chip.zip
+        run: cd chip && zip -9 ../chip.zip chip.*
+
+      - name: Upload release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: chip.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+          generateReleaseNotes: true

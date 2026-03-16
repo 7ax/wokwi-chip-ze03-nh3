@@ -6,14 +6,15 @@ CFLAGS = --target=wasm32-wasi -Wall -Wextra -Werror -Os \
          -Wl,--allow-undefined -I src
 
 SRC    = src/main.c
-OUT    = ze03-nh3.wasm
+OUT    = dist/chip.wasm
 
 .PHONY: all clean
 
 all: $(OUT)
 
 $(OUT): $(SRC) src/wokwi-api.h
+	mkdir -p dist
 	$(CC) $(CFLAGS) -o $@ $(SRC)
 
 clean:
-	rm -f $(OUT)
+	rm -rf dist
