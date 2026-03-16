@@ -5,6 +5,10 @@
 
 Wokwi custom chip simulating the **Winsen ZE03-NH3** electrochemical ammonia gas sensor (UART module).
 
+<p align="center">
+  <img src="board.svg" alt="ZE03-NH3 board visual" width="270">
+</p>
+
 ## Usage
 
 Add to your project's `wokwi.toml`:
