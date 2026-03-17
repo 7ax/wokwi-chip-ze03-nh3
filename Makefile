@@ -10,11 +10,17 @@ OUT    = dist/chip.wasm
 
 .PHONY: all clean
 
-all: $(OUT)
+all: $(OUT) dist/chip.json
 
 $(OUT): $(SRC) src/wokwi-api.h
 	mkdir -p dist
 	$(CC) $(CFLAGS) -o $@ $(SRC)
+
+dist/chip.json: dist chip.json
+	cp chip.json dist
+
+dist:
+	mkdir -p dist
 
 clean:
 	rm -rf dist

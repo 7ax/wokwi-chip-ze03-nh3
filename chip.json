@@ -1,6 +1,8 @@
 {
+  "version": 1,
   "name": "ZE03-NH3",
   "author": "7ax",
+  "docs": "https://github.com/7ax/wokwi-chip-ze03-nh3",
   "pins": ["VCC", "GND", "TXD", "RXD"],
   "controls": [
     {

@@ -1,26 +1,24 @@
-name: Build WASM
+name: Build Chip
 
 on:
   push:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
+      - name: Check out repository
+        uses: actions/checkout@v4
       - name: Build chip
         uses: wokwi/wokwi-chip-clang-action@main
         with:
           sources: src/main.c
-
-      - name: Bundle chip.json
+      - name: Copy chip.json
         run: sudo cp chip.json dist/
-
+      - name: Copy board files
+        run: sudo cp -r board dist/
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -28,20 +26,23 @@ jobs:
           path: |
             dist/chip.json
             dist/chip.wasm
+            dist/board/
 
   release:
+    name: Release
     needs: build
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - name: Download compiled chip
+        uses: actions/download-artifact@v4
         with:
           name: chip
           path: chip
-
-      - name: Create chip.zip
-        run: cd chip && zip -9 ../chip.zip chip.*
-
+      - name: Create zip archive
+        run: cd chip && zip -9 -r ../chip.zip .
       - name: Upload release
         uses: ncipollo/release-action@v1
         with:
