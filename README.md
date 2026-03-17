@@ -6,7 +6,7 @@
 Wokwi custom chip simulating the **Winsen ZE03-NH3** electrochemical ammonia gas sensor (UART module).
 
 <p align="center">
-  <img src="board.svg" alt="ZE03-NH3 board visual" width="270">
+  <img src="board/board.svg" alt="ZE03-NH3 board visual" width="270">
 </p>
 
 ## Usage
@@ -15,7 +15,7 @@ Add to your project's `wokwi.toml`:
 
 ```toml
 [chips.ze03-nh3]
-url = "github:7ax/wokwi-chip-ze03-nh3@1.0.0"
+url = "github:7ax/wokwi-chip-ze03-nh3@1.0.1"
 ```
 
 Then reference it in `diagram.json`:
