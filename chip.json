@@ -12,6 +12,14 @@
       "min": 0,
       "max": 100,
       "step": 1
+    },
+    {
+      "id": "fault",
+      "label": "Fault",
+      "type": "range",
+      "min": 0,
+      "max": 1,
+      "step": 1
     }
   ]
 }
