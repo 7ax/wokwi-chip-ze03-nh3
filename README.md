@@ -57,10 +57,12 @@ Concentration (ppm) = HIGH x 256 + LOW
 
 ### Q&A Mode
 
-Host sends read request, sensor responds:
+Host sends read request, sensor responds. Both long and short query formats are supported:
 
 ```
-Request:  FF 01 86 00 00 00 00 00 79
+Long:  FF 01 86 00 00 00 00 00 79   (datasheet format)
+Short: FF 86 00 00 00 00 00 00 7A   (Arduino library format)
+
 Response: FF 86 [HIGH] [LOW] 00 00 00 00 [CHECKSUM]
 ```
 
@@ -72,12 +74,42 @@ Response: FF 86 [HIGH] [LOW] 00 00 00 00 [CHECKSUM]
 | Switch to Active | `FF 01 78 03 00 00 00 00 84` |
 | Response (OK) | `FF 78 01 00 00 00 00 00 87` |
 
+### Calibration Commands
+
+Zero and span calibration commands are accepted and acknowledged (stub — no internal state change):
+
+| Command | Bytes |
+|---|---|
+| Zero calibration | `FF 01 87 00 00 00 00 00 78` |
+| Span calibration | `FF 01 88 [HIGH] [LOW] 00 00 00 [CS]` |
+| Zero cal response | `FF 87 01 00 00 00 00 00 78` |
+| Span cal response | `FF 88 01 00 00 00 00 00 77` |
+
 ### Checksum
 
 Two's complement of the sum of bytes 1 through 7:
 
 ```
 checksum = (~(byte1 + byte2 + ... + byte7) + 1) & 0xFF
+```
+
+## Advanced Attributes
+
+These attributes are set in `diagram.json` and are disabled by default:
+
+| Attribute | Default | Description |
+|---|---|---|
+| `warmup_ms` | `0` | Warmup period in milliseconds. During warmup, concentration reads return 0 ppm. Set to `0` to disable (instant start). |
+| `fault` | `0` | Fault injection. Set to `1` to simulate a dead sensor: all TX is suppressed and all commands are ignored. Toggle back to `0` to resume. Also available as a slider control. |
+
+Example `diagram.json`:
+
+```json
+{
+  "type": "chip-ze03-nh3",
+  "id": "nh3",
+  "attrs": { "nh3_ppm": "5", "warmup_ms": "30000" }
+}
 ```
 
 ## Datasheet
